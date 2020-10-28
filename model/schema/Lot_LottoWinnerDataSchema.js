@@ -1,0 +1,1 @@
+// Lotto Winner Data mongoose Schema
