@@ -4,13 +4,13 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var dotenv = require('dotenv');
+var mongoose = require('mongoose');
 
 
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
  */
 dotenv.config({ path: '.env.dev' });
-
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -31,6 +31,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/lottos', lottoRouter);
+
+// connect mongoose
+mongoose.Promise = global.Promise;
+mongoose.connect(process.env.DB_PATH, {useNewUrlParser : true})
+    .then(() => {
+        console.log("connect DB success");
+    })
+    .catch(err => {
+        console.log("could not connect to the database. \n" + err);
+        error :err
+	});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
