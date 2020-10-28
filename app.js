@@ -12,6 +12,7 @@ var mongoose = require('mongoose');
  */
 dotenv.config({ path: '.env.dev' });
 
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var lottoRouter = require('./routes/Lot_LottoRouter');
